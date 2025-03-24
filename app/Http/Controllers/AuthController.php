@@ -14,6 +14,13 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('home');
+    }
+
     public function redirect($provider)
     {
         return Socialite::driver($provider)->redirect();
