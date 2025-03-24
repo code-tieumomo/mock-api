@@ -7,5 +7,24 @@
 
 @theme {
     --font-sans: 'JetBrains Mono', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@layer components {
+    .btn {
+        @apply text-sm flex items-center gap-2 px-3 py-1.5 border border-gray-300 rounded-md shadow-sm cursor-pointer transition-all hover:shadow-lg;
+    }
+
+    .input {
+        @apply block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:ring-2 focus:shadow-none text-sm;
+    }
+
+    .tiptap {
+        @apply mt-1 border border-gray-300 rounded-md shadow-sm px-3 py-2 min-h-[162px] text-sm;
+    }
+}
+
+/* Custom */
+.tiptap p.is-editor-empty:first-child::before {
+    @apply text-[#8e8e91] content-[attr(data-placeholder)] float-left h-0 pointer-events-none text-sm font-sans;
 }
