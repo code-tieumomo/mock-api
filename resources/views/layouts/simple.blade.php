@@ -11,7 +11,9 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    <link
+        href="https://fonts.bunny.net/css?family=jetbrains-mono:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i"
+        rel="stylesheet" />
 
     <!-- Styles / Scripts -->
     @yield('css')
@@ -19,11 +21,10 @@
 </head>
 
 <body class="bg-[#FDFDFC] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-    <div
-        class="flex items-center justify-center w-full lg:grow">
+    <div class="flex items-center justify-center w-full lg:grow">
         <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
             <div
-                class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
+                class="text-sm flex-1 p-6 pb-12 lg:p-12 bg-white shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
                 @yield('content')
             </div>
             <div

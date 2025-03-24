@@ -3,7 +3,7 @@
 @section('title', 'Mock API')
 
 @section('content')
-    <h1 class="mb-1 font-medium">Let's get started</h1>
+    <h1 class="mb-2 font-medium">Let's get started</h1>
     <p class="mb-2 text-[#706f6c]">
         Create your simple mock API for testing and prototyping in 2 steps
     </p>
@@ -29,7 +29,7 @@
                 </span>
             </span>
             <span>
-                Edit generated JSON structure of your API
+                Edit generated JSON structure
             </span>
         </li>
     </ul>
