@@ -8,6 +8,43 @@
 @theme {
     --font-sans: 'JetBrains Mono', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* light theme */
+    --color-surface: var(--color-white);
+    --color-surface-alt: var(--color-neutral-50);
+    --color-on-surface: var(--color-neutral-600);
+    --color-on-surface-strong: var(--color-neutral-900);
+    --color-primary: var(--color-black);
+    --color-on-primary: var(--color-neutral-100);
+    --color-secondary: var(--color-neutral-800);
+    --color-on-secondary: var(--color-white);
+    --color-outline: var(--color-neutral-300);
+    --color-outline-strong: var(--color-neutral-800);
+
+    /* dark theme */
+    --color-surface-dark: var(--color-neutral-950);
+    --color-surface-dark-alt: var(--color-neutral-900);
+    --color-on-surface-dark: var(--color-neutral-300);
+    --color-on-surface-dark-strong: var(--color-white);
+    --color-primary-dark: var(--color-white);
+    --color-on-primary-dark: var(--color-black);
+    --color-secondary-dark: var(--color-neutral-300);
+    --color-on-secondary-dark: var(--color-black);
+    --color-outline-dark: var(--color-neutral-700);
+    --color-outline-dark-strong: var(--color-neutral-300);
+
+    /* shared colors */
+    --color-info: var(--color-sky-500);
+    --color-on-info: var(--color-white);
+    --color-success: var(--color-green-500);
+    --color-on-success: var(--color-white);
+    --color-warning: var(--color-amber-500);
+    --color-on-warning: var(--color-white);
+    --color-danger: var(--color-red-500);
+    --color-on-danger: var(--color-white);
+
+    /* border radius */
+    --radius-radius: var(--radius-md);
 }
 
 @layer components {
@@ -27,4 +64,42 @@
 /* Custom */
 .tiptap p.is-editor-empty:first-child::before {
     @apply text-[#8e8e91] content-[attr(data-placeholder)] float-left h-0 pointer-events-none text-sm font-sans;
+}
+
+.jsoneditor-tree {
+    @apply p-2 rounded-b-md;
+}
+
+.jsoneditor-tree > input[type=checkbox] {
+    @apply mt-[5px];
+}
+
+.jsoneditor {
+    @apply border border-gray-300 rounded-md;
+}
+
+.jsoneditor-menu {
+    @apply bg-black border-none rounded-t-md;
+}
+
+div.jsoneditor.jsoneditor-mode-preview pre.jsoneditor-preview {
+    @apply p-4 leading-6;
+}
+
+.jsoneditor-treepath .jsoneditor-treepath-element,
+.jsoneditor-treepath .jsoneditor-treepath-seperator {
+    @apply mr-2;
+}
+
+.jsoneditor-sort,
+.jsoneditor-transform,
+.jsoneditor-repair,
+.jsoneditor-undo,
+.jsoneditor-redo {
+    @apply hidden;
+}
+
+.jsoneditor-menu > .jsoneditor-modes > button.jsoneditor-separator,
+.jsoneditor-menu > button.jsoneditor-separator {
+    @apply ml-[2px];
 }

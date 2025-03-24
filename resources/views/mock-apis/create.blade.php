@@ -2,11 +2,6 @@
 
 @section('title', 'Create - Mock API')
 
-@section('css')
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.1.3/jsoneditor.min.css"/>
-@endsection
-
 @section('content')
     <div class="container mx-auto px-4 py-8">
         <div class="flex items-center justify-between">

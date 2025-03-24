@@ -23,6 +23,10 @@ class MockApiController extends Controller
         $resourcePrefix = $request->resource_prefix;
         $description = $request->description;
 
-        dd($name, $resourcePrefix, $description);
+        return view('mock-apis.generate', compact([
+            'name',
+            'resourcePrefix',
+            'description',
+        ]));
     }
 }
