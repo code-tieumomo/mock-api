@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MockApi;
+use App\Models\User;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -220,5 +221,38 @@ class MockApiController extends Controller
             ->delete();
 
         return redirect()->route('dashboard');
+    }
+
+    public function show(MockApi $mockApi)
+    {
+        return view('mock-apis.show', compact('mockApi'));
+    }
+
+    public function apiIndex(string $providerId, string $prefix)
+    {
+        $user = User::where('provider_id', $providerId)->first();
+        $userId = $user->id;
+
+        $mockApi = MockApi::where('user_id', $userId)
+            ->where('prefix', '/' . $prefix)
+            ->where('status', 'published')
+            ->first();
+        $storage = $mockApi->storage;
+
+        // Paginate
+        $page = request()->query('page', 1);
+        $perPage = request()->query('per_page', 10);
+        $offset = ($page - 1) * $perPage;
+        $total = count($storage);
+        $data = array_slice($storage, $offset, $perPage);
+
+        return response()->json([
+            'data' => $data,
+            'meta' => [
+                'page' => $page,
+                'per_page' => $perPage,
+                'total' => $total,
+            ],
+        ]);
     }
 }

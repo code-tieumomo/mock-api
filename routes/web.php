@@ -26,4 +26,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/mock-apis/{mockApi}/publish', [MockApiController::class, 'publish'])->name('mock-apis.publish');
     Route::post('/mock-apis/{mockApi}/publish', [MockApiController::class, 'publishApi'])->name('mock-apis.publish.store');
     Route::post('/mock-apis/{mockApi}/regenerate', [MockApiController::class, 'regenerate'])->name('mock-apis.regenerate');
+    Route::get('/mock-apis/{mockApi}', [MockApiController::class, 'show'])->name('mock-apis.show');
 });

@@ -111,3 +111,7 @@ div.jsoneditor.jsoneditor-mode-preview pre.jsoneditor-preview {
 .jsoneditor-menu > button.jsoneditor-separator {
     @apply ml-[2px];
 }
+
+.div.jsoneditor-tree div.jsoneditor-color.jsoneditor-color-readonly {
+    @apply mt-[5px];
+}

@@ -18,7 +18,7 @@
         </div>
 
         @forelse($mockApis as $mockApi)
-            <a href="" class="flex items-center justify-between w-full border border-gray-300 rounded-md p-4 mt-4 hover:bg-gray-100">
+            <a href="{{ route('mock-apis.show', $mockApi) }}" class="flex items-center justify-between w-full border border-gray-300 rounded-md p-4 mt-4 hover:bg-gray-100">
                 <div>
                     <h2 class="font-bold">{{ $mockApi->name }}</h2>
                     <p class="text-sm text-gray-500 mt-1 bg-gray-100 px-2 py-0.5 rounded-md shadow border border-gray-300">{{ $mockApi->prefix }}</p>

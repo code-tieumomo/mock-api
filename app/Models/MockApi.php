@@ -34,6 +34,7 @@ class MockApi extends Model
     {
         return [
             'structure' => 'array',
+            'storage' => 'array',
         ];
     }
 
