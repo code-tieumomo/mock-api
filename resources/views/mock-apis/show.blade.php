@@ -17,7 +17,9 @@
 
         <div class="mt-8 border border-gray-300 rounded-md p-4 text-sm">
             API Endpoint:
-            <span class="font-semibold">{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}</span>
+            <a href="{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}" target="_blank" class="font-semibold">
+                {{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}
+            </a>
         </div>
 
         <h2 class="font-semibold mt-8">Data</h2>

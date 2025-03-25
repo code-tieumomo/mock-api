@@ -21,7 +21,11 @@
             <a href="{{ route('mock-apis.show', $mockApi) }}" class="flex items-center justify-between w-full border border-gray-300 rounded-md p-4 mt-4 hover:bg-gray-100">
                 <div>
                     <h2 class="font-bold">{{ $mockApi->name }}</h2>
-                    <p class="text-sm text-gray-500 mt-1 bg-gray-100 px-2 py-0.5 rounded-md shadow border border-gray-300">{{ $mockApi->prefix }}</p>
+                    <p class="text-sm mt-2">
+                        <span class="rounded-radius w-fit border border-outline bg-surface-alt px-2 py-1 text-xs font-medium text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">
+                            {{ $mockApi->prefix }}
+                        </span>
+                    </p>
                 </div>
                 <div class="flex items-center gap-1 text-gray-400 text-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M4 14v-2h7v2zm0-4V8h11v2zm0-4V4h11v2zm9 14v-3.075l6.575-6.55l3.075 3.05L16.075 20zm6.575-5.6l.925-.975l-.925-.925l-.95.95z"/></svg>

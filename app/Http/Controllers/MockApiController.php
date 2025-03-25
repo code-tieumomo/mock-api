@@ -205,6 +205,7 @@ class MockApiController extends Controller
 
         $dataResponse = Prism::text()
             ->using(Provider::XAI, 'grok-2-latest')
+            ->withMaxTokens(10240)
             ->withPrompt($dataPrompt)
             ->generate();
         $rawData = $dataResponse->text;
