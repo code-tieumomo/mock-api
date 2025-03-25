@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('mock_apis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('endpoint');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('prefix');
+            $table->json('structure')->nullable();
             $table->json('storage')->nullable();
+            $table->string('status')->default('draft');
             $table->timestamps();
-
-            $table->unique(['user_id', 'endpoint']);
         });
     }
 

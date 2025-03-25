@@ -70,6 +70,10 @@
     @apply list-disc pl-5;
 }
 
+#description-editor {
+    @apply min-h-[162px];
+}
+
 .jsoneditor-tree {
     @apply p-2 rounded-b-md;
 }

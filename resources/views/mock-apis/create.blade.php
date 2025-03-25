@@ -27,8 +27,8 @@
                 <label for="name" class="block text-sm font-medium text-gray-700">
                     Resource Prefix<sup class="text-red-500">*</sup>
                 </label>
-                <input type="text" name="resource_prefix" value="{{ old('resource_prefix') }}" id="resource-prefix" class="mt-1 input w-full" placeholder="/todos, /users, ...">
-                @error('resource_prefix')
+                <input type="text" name="prefix" value="{{ old('prefix') }}" id="resource-prefix" class="mt-1 input w-full" placeholder="/todos, /users, ...">
+                @error('prefix')
                 <div class="mt-1 text-red-500 italic text-xs">{{ $message }}</div>
                 @enderror
             </div>
