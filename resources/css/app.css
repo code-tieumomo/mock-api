@@ -66,6 +66,10 @@
     @apply text-[#8e8e91] content-[attr(data-placeholder)] float-left h-0 pointer-events-none text-sm font-sans;
 }
 
+.tiptap ul {
+    @apply list-disc pl-5;
+}
+
 .jsoneditor-tree {
     @apply p-2 rounded-b-md;
 }

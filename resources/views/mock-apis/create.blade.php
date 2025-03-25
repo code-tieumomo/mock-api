@@ -46,9 +46,6 @@
             </div>
 
             <div class="col-span-full flex items-center justify-center gap-4">
-                <button class="btn" type="reset">
-                    Reset
-                </button>
                 <button class="btn bg-black text-white" type="submit">
                     Generate JSON structure
                 </button>

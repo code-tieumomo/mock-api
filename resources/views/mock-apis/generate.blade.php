@@ -17,7 +17,7 @@
         <div class="mt-8 w-full divide-y divide-outline overflow-hidden rounded-radius border border-outline bg-surface-alt/40 text-on-surface">
             <div x-data="{ isExpanded: false }">
                 <button id="controlsAccordionItemOne" type="button"
-                        class="flex w-full items-center justify-between gap-4 bg-surface-alt px-3 py-1.5 text-sm text-left underline-offset-2 hover:bg-surface-alt/75 focus-visible:bg-surface-alt/75 focus-visible:underline focus-visible:outline-hidden"
+                        class="flex w-full items-center justify-between gap-4 bg-surface-alt p-4 text-sm text-left underline-offset-2 hover:bg-surface-alt/75 focus-visible:bg-surface-alt/75 focus-visible:underline focus-visible:outline-hidden"
                         aria-controls="accordionItemOne" x-on:click="isExpanded = ! isExpanded"
                         x-bind:class="isExpanded ? 'text-on-surface-strong font-bold'  : 'text-on-surface font-medium'"
                         x-bind:aria-expanded="isExpanded ? 'true' : 'false'">
@@ -30,17 +30,34 @@
                 </button>
                 <div x-cloak x-show="isExpanded" id="accordionItemOne" role="region"
                      aria-labelledby="controlsAccordionItemOne" x-collapse>
-                    <div class="px-3 py-2 text-sm text-pretty">
-                        <ul class="list-disc pl-4">
-                            <li>
-                                <span class="font-medium">Resource Name: </span>
-                                <span>{{ $name }}</span>
-                            </li>
-                            <li>
-                                <span class="font-medium">Resource Prefix: </span>
-                                <span>`{{ $resourcePrefix }}`</span>
-                            </li>
-                        </ul>
+                    <div class="p-4 text-sm text-pretty grid grid-cols-2 gap-8">
+                        <div class="col-span-1">
+                            <label for="name" class="block text-sm font-medium text-gray-700">
+                                Resource Name<sup class="text-red-500">*</sup>
+                            </label>
+                            <input type="text" name="name" value="{{ $name }}" id="name" class="mt-1 input w-full" placeholder="Todo, User, ...">
+                        </div>
+            
+                        <div class="col-span-1">
+                            <label for="name" class="block text-sm font-medium text-gray-700">
+                                Resource Prefix<sup class="text-red-500">*</sup>
+                            </label>
+                            <input type="text" name="resource_prefix" value="{{ $resourcePrefix }}" id="resource-prefix" class="mt-1 input w-full" placeholder="/todos, /users, ...">
+                        </div>
+
+                        <div class="col-span-full">
+                            <label for="description" class="block text-sm font-medium text-gray-700">
+                                Description
+                            </label>
+                            <div id="description-editor" class="element"></div>
+                            <textarea name="description" id="description" class="hidden">
+                                {{ $description }}
+                            </textarea>
+                            <p class="italic text-xs text-gray-500 mt-2">
+                                For the best practice, you should provide a description for this API, include the purpose, the data
+                                structure, and the response.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,12 +67,6 @@
             Make sure the JSON structure below is correct with your expectation. If not, you can edit it.
         </p>
         <div id="jsoneditor" class="w-full h-96 mt-2"></div>
-
-        <form action="">
-            <input type="hidden" name="name" value="{{ $name }}">
-            <input type="hidden" name="resource_prefix" value="{{ $resourcePrefix }}">
-            <input type="hidden" name="json_structure" id="json-structure">
-        </form>
     </div>
 @endsection
 
@@ -72,15 +83,7 @@
       };
       const editor = new JSONEditor(container, options);
 
-      const initialJson = {
-        'name': 'String',
-        'age': 25,
-        'isStudent': true,
-        'address': {
-          'street': 'Main Street',
-          'city': 'New York'
-        }
-      };
+      const initialJson = @json($structure);
       editor.set(initialJson);
       // editor.expandAll(); // Only work in view mode
 
