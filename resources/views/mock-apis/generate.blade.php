@@ -82,7 +82,7 @@
         }
       };
       editor.set(initialJson);
-      editor.expandAll();
+      // editor.expandAll(); // Only work in view mode
 
       const updatedJson = editor.get();
     </script>
