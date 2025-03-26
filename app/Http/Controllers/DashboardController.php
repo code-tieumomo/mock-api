@@ -9,7 +9,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $mockApis = Auth::user()->mockApis()->orderBy('created_at', 'desc')->get();
+        $mockApis = Auth::user()
+            ->mockApis()
+            ->where('status', 'published')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('dashboard', compact(
             'mockApis'

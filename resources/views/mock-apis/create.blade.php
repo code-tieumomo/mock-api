@@ -76,6 +76,7 @@
       const form = document.querySelector('#form');
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        setTimeout(() => showOverlay(), 100);
         document.querySelector('#description').value = editor.getHTML();
         form.submit();
       });

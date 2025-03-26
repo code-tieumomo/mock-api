@@ -113,6 +113,7 @@
       const formPublish = document.getElementById('form-publish');
       formPublish.addEventListener('submit', function (event) {
         event.preventDefault();
+        setTimeout(() => showOverlay(), 100);
         const json = jsonEditor.get();
         document.getElementById('json-structure').value = JSON.stringify(json);
         formPublish.submit();

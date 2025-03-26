@@ -36,7 +36,9 @@
                         </svg>
                     </div>
                     <div class="ml-2">
-                        <h3 class="text-sm font-semibold text-success">Saved new data</h3>
+                        <h3 class="text-sm font-semibold text-success">
+                            {{ session('success') }}
+                        </h3>
                     </div>
                     <button class="ml-auto" aria-label="dismiss alert" type="button" x-on:click="show = false">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="2.5" class="size-4 shrink-0">
@@ -46,7 +48,7 @@
                 </div>
             </div>
             @endif
-            <div id="jsoneditor" class="w-full h-96 mt-2"></div>
+            <div id="jsoneditor" class="w-full min-h-96 h-[calc(100dvh-23rem)] mt-2"></div>
             <textarea name="storage" id="storage" class="hidden"></textarea>
 
             <div class="flex items-center justify-center gap-4 mt-4">
@@ -55,6 +57,109 @@
                 </button>
             </div>
         </form>
+
+        <h2 class="mt-8 font-semibold">
+            Endpoints
+        </h2>
+
+        <section class="mt-4">
+            <div class="border border-gray-300 p-2 rounded-md flex items-center gap-2">
+                <span class="w-fit inline-flex overflow-hidden rounded-radius border border-info bg-surface text-xs font-medium text-info">
+                    <span class="flex items-center gap-1 bg-info/10 px-2 py-1">
+                        <span class="size-1.5 rounded-full bg-info"></span>
+                        GET
+                    </span>
+                </span>
+                <span class="font-medium">
+                    {{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}
+                </span>
+            </div>
+
+            <h3 class="mt-4 font-semibold text-lg">
+                Get list of resources
+            </h3>
+
+            <h4 class="mt-4">Params</h4>
+            <div class="overflow-hidden w-full overflow-x-auto rounded-radius border border-outline mt-2">
+                <table class="w-full text-left text-sm text-on-surface">
+                    <thead class="border-b border-outline bg-surface-alt text-sm text-on-surface-strong">
+                        <tr class="rounded-t">
+                            <th scope="col" class="p-4">Name</th>
+                            <th scope="col" class="p-4">Example</th>
+                            <th scope="col" class="p-4">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline">
+                        <tr>
+                            <td class="p-4">page</td>
+                            <td class="p-4">[number] 1, 2, 3, ...</td>
+                            <td class="p-4">The page number. Default is 1</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">per_page</td>
+                            <td class="p-4">[number] 10, 20, 50, ...</td>
+                            <td class="p-4">The number of items per page. Default is 10</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">query</td>
+                            <td class="p-4">[string] john, doe, ...</td>
+                            <td class="p-4">
+                                The search query
+                                <br>
+                                Based on the query_field:
+                                <ul class="list-disc pl-5">
+                                    <li>If query_field has value, the query will search in that field</li>
+                                    <li>If query_field is empty, the query will search in all fields</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">query_field</td>
+                            <td class="p-4">[string] name, address.city, users.0.email, ...</td>
+                            <td class="p-4">The field to search</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="mt-6">Example</h4>
+            <div class="w-full divide-y divide-outline overflow-hidden rounded-radius border border-outline bg-surface-alt/40 text-on-surface dark:divide-outline-dark dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:text-on-surface-dark mt-2">
+                <div x-data="{ isExpanded: false }">
+                    <button id="controlsAccordionItemOne" type="button" class="flex w-full items-center justify-between gap-4 bg-surface-alt px-4 py-2 text-left underline-offset-2 hover:bg-surface-alt/75 focus-visible:bg-surface-alt/75 focus-visible:underline focus-visible:outline-hidden dark:bg-surface-dark-alt dark:hover:bg-surface-dark-alt/75 dark:focus-visible:bg-surface-dark-alt/75" aria-controls="accordionItemOne" x-on:click="isExpanded = ! isExpanded" x-bind:class="isExpanded ? 'text-on-surface-strong dark:text-on-surface-dark-strong font-bold'  : 'text-on-surface dark:text-on-surface-dark font-medium'" x-bind:aria-expanded="isExpanded ? 'true' : 'false'">
+                        Get all resources
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor" class="size-5 shrink-0 transition" aria-hidden="true" x-bind:class="isExpanded  ?  'rotate-180'  :  ''">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                        </svg>
+                    </button>
+                    <div x-cloak x-show="isExpanded" id="accordionItemOne" role="region" aria-labelledby="controlsAccordionItemOne" x-collapse>
+                        <div class="px-4 py-2 text-sm sm:text-base text-pretty">
+                            <a href="{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}" target="_blank" class="flex items-center">
+                                <span class="text-info mr-4">GET</span>
+                                <span class="font-semibold">{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}</span>
+                                <span class="text-gray-500"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div x-data="{ isExpanded: false }">
+                    <button id="controlsAccordionItemOne" type="button" class="flex w-full items-center justify-between gap-4 bg-surface-alt px-4 py-2 text-left underline-offset-2 hover:bg-surface-alt/75 focus-visible:bg-surface-alt/75 focus-visible:underline focus-visible:outline-hidden dark:bg-surface-dark-alt dark:hover:bg-surface-dark-alt/75 dark:focus-visible:bg-surface-dark-alt/75" aria-controls="accordionItemOne" x-on:click="isExpanded = ! isExpanded" x-bind:class="isExpanded ? 'text-on-surface-strong dark:text-on-surface-dark-strong font-bold'  : 'text-on-surface dark:text-on-surface-dark font-medium'" x-bind:aria-expanded="isExpanded ? 'true' : 'false'">
+                        Get all resources in page 2
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor" class="size-5 shrink-0 transition" aria-hidden="true" x-bind:class="isExpanded  ?  'rotate-180'  :  ''">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                        </svg>
+                    </button>
+                    <div x-cloak x-show="isExpanded" id="accordionItemOne" role="region" aria-labelledby="controlsAccordionItemOne" x-collapse>
+                        <div class="px-4 py-2 text-sm sm:text-base text-pretty">
+                            <a href="{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}?page=2" target="_blank" class="flex items-center">
+                                <span class="text-info mr-4">GET</span>
+                                <span class="font-semibold">{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}</span>
+                                <span class="text-gray-500">?page=2</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 @endsection
 

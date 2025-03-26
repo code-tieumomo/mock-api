@@ -57,7 +57,7 @@
     }
 
     .tiptap {
-        @apply mt-1 border border-gray-300 rounded-md shadow-sm px-3 py-2 min-h-[162px] text-sm;
+        @apply min-h-[162px] px-3 py-2 rounded-md;
     }
 }
 
@@ -71,7 +71,7 @@
 }
 
 #description-editor {
-    @apply min-h-[162px];
+    @apply mt-1 border border-gray-300 rounded-md shadow-sm min-h-[162px] text-sm;
 }
 
 .jsoneditor-tree {

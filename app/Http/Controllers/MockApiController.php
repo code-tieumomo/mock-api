@@ -224,7 +224,8 @@ class MockApiController extends Controller
             ->where('id', '!=', $mockApi->id)
             ->delete();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('mock-apis.show', $mockApi)
+            ->with('success', 'Mock API published successfully.');
     }
 
     public function show(MockApi $mockApi)
