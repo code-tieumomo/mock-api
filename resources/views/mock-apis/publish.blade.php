@@ -40,7 +40,7 @@
                                 Resource Name
                             </label>
                             <input type="text" name="name" value="{{ $mockApi->name }}"
-                                   class="mt-1 input w-full" placeholder="Todo, User, ...">
+                                   class="mt-1 input w-full bg-white" placeholder="Todo, User, ...">
                             @error('name')
                             <div class="mt-1 text-red-500 italic text-xs">{{ $message }}</div>
                             @enderror
@@ -51,7 +51,7 @@
                                 Resource Prefix
                             </label>
                             <input type="text" name="prefix" value="{{ $mockApi->prefix }}"
-                                   class="mt-1 input w-full" placeholder="/todos, /users, ...">
+                                   class="mt-1 input w-full bg-white" placeholder="/todos, /users, ...">
                             @error('prefix')
                             <div class="mt-1 text-red-500 italic text-xs">{{ $message }}</div>
                             @enderror
@@ -61,7 +61,7 @@
                             <label for="description" class="block text-sm font-medium text-gray-700">
                                 Description
                             </label>
-                            <div id="description-editor" class="element"></div>
+                            <div id="description-editor" class="element bg-white"></div>
                             <textarea name="description" id="description" class="hidden"></textarea>
                         </div>
 
