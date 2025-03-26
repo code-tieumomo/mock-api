@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MockApi;
 use App\Models\User;
+use Arr;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -156,6 +157,8 @@ class MockApiController extends Controller
 
     public function publishApi(MockApi $mockApi, Request $request)
     {
+        ini_set('max_execution_time', 300);
+        
         $request->validate([
             'json_structure' => 'required|json',
         ]);
@@ -205,9 +208,9 @@ class MockApiController extends Controller
 
         $dataResponse = Prism::text()
             ->using(Provider::XAI, 'grok-2-latest')
-            ->withMaxTokens(10240)
+            ->withMaxTokens(130000)
             ->withPrompt($dataPrompt)
-            ->generate();
+            ->asText();
         $rawData = $dataResponse->text;
         $data = json_decode($rawData, true);
 
@@ -229,6 +232,24 @@ class MockApiController extends Controller
         return view('mock-apis.show', compact('mockApi'));
     }
 
+    public function update(MockApi $mockApi, Request $request)
+    {
+        $request->validate([
+            'storage' => 'required|json',
+        ]);
+
+        $storage = json_decode($request->storage, true);
+        
+        $mockApi->update([
+            'storage' => $storage,
+        ]);
+
+        return redirect()->route('mock-apis.show', $mockApi)
+            ->with('success', 'Mock API updated successfully.');
+    }
+
+    // API
+
     public function apiIndex(string $providerId, string $prefix)
     {
         $user = User::where('provider_id', $providerId)->first();
@@ -247,9 +268,24 @@ class MockApiController extends Controller
         $total = count($storage);
         $data = array_slice($storage, $offset, $perPage);
 
+        // Query
+        $query = request()->query('query');
+        $queryField = request()->query('query_field');
+        if ($query && $queryField) {
+            $data = array_filter($data, function ($item) use ($query, $queryField) {
+                $needleValue = Arr::get($item, $queryField);
+                return strpos($needleValue, $query) !== false;
+            });
+        } else if ($query) {
+            $data = array_filter($data, function ($item) use ($query) {
+                return strpos(json_encode($item), $query) !== false;
+            });
+        }
+
         return response()->json([
             'data' => $data,
             'meta' => [
+                'count' => count($data),
                 'page' => $page,
                 'per_page' => $perPage,
                 'total' => $total,
