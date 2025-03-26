@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MockApiController;
+use App\Models\MockApi;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -21,11 +22,25 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/mock-apis/create', [MockApiController::class, 'create'])->name('mock-apis.create');
-    Route::post('/mock-apis/generate', [MockApiController::class, 'generate'])->name('mock-apis.generate');
-    Route::get('/mock-apis/{mockApi}/publish', [MockApiController::class, 'publish'])->name('mock-apis.publish');
-    Route::post('/mock-apis/{mockApi}/publish', [MockApiController::class, 'publishApi'])->name('mock-apis.publish.store');
-    Route::post('/mock-apis/{mockApi}/regenerate', [MockApiController::class, 'regenerate'])->name('mock-apis.regenerate');
-    Route::get('/mock-apis/{mockApi}', [MockApiController::class, 'show'])->name('mock-apis.show');
-    Route::put('/mock-apis/{mockApi}', [MockApiController::class, 'update'])->name('mock-apis.update');
+    Route::get('/mock-apis/create', [MockApiController::class, 'create'])
+        ->name('mock-apis.create')
+        ->can('create', MockApi::class);
+    Route::post('/mock-apis/generate', [MockApiController::class, 'generate'])
+        ->name('mock-apis.generate')
+        ->can('create', MockApi::class);
+    Route::get('/mock-apis/{mockApi}/publish', [MockApiController::class, 'publish'])
+        ->name('mock-apis.publish')
+        ->can('publish', 'mockApi');
+    Route::post('/mock-apis/{mockApi}/publish', [MockApiController::class, 'publishApi'])
+        ->name('mock-apis.publish.store')
+        ->can('publish', 'mockApi');
+    Route::post('/mock-apis/{mockApi}/regenerate', [MockApiController::class, 'regenerate'])
+        ->name('mock-apis.regenerate')
+        ->can('update', 'mockApi');
+    Route::get('/mock-apis/{mockApi}', [MockApiController::class, 'show'])
+        ->name('mock-apis.show')
+        ->can('view', 'mockApi');
+    Route::put('/mock-apis/{mockApi}', [MockApiController::class, 'update'])
+        ->name('mock-apis.update')
+        ->can('update', 'mockApi');
 });
