@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/mock-apis/{mockApi}/regenerate', [MockApiController::class, 'regenerate'])
         ->name('mock-apis.regenerate')
         ->can('update', 'mockApi');
+    Route::put('/mock-apis/{mockApi}/reset', [MockApiController::class, 'reset'])
+        ->name('mock-apis.reset')
+        ->can('update', 'mockApi');
     Route::get('/mock-apis/{mockApi}', [MockApiController::class, 'show'])
         ->name('mock-apis.show')
         ->can('view', 'mockApi');

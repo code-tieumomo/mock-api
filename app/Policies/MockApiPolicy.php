@@ -27,9 +27,13 @@ class MockApiPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
-        return true;
+        $mockApiCount = $user->mockApis()->count();
+        
+        return $mockApiCount < config('mock.max_mock_apis')
+            ? Response::allow()
+            : Response::deny('You have reached the maximum number of mock APIs.');
     }
 
     /**
