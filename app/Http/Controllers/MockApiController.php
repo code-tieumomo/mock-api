@@ -249,6 +249,14 @@ class MockApiController extends Controller
             ->with('success', 'Mock API updated successfully.');
     }
 
+    public function delete(MockApi $mockApi)
+    {
+        $mockApi->delete();
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Mock API deleted successfully.');
+    }
+
     // API
 
     public function apiIndex(string $providerId, string $prefix)

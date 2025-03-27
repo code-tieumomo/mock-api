@@ -40,6 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/mock-apis/{mockApi}/reset', [MockApiController::class, 'reset'])
         ->name('mock-apis.reset')
         ->can('update', 'mockApi');
+    Route::put('/mock-apis/{mockApi}/archive', [MockApiController::class, 'archive'])
+        ->name('mock-apis.archive')
+        ->can('delete', 'mockApi');
+    Route::delete('/mock-apis/{mockApi}/delete', [MockApiController::class, 'delete'])
+        ->name('mock-apis.delete')
+        ->can('delete', 'mockApi');
     Route::get('/mock-apis/{mockApi}', [MockApiController::class, 'show'])
         ->name('mock-apis.show')
         ->can('view', 'mockApi');

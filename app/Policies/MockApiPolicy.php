@@ -49,7 +49,7 @@ class MockApiPolicy
      */
     public function delete(User $user, MockApi $mockApi): bool
     {
-        return false;
+        return $user->id === $mockApi->user_id;
     }
 
     /**
