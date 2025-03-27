@@ -65,7 +65,7 @@
                     <img src="{{ Auth::user()->avatar }}" alt="avatar" class="size-6 rounded-full ring-2 ring-gray-400">
                 </div>
 
-                <div x-show="showDropdown" x-transition style="display: none"
+                <div x-show="showDropdown" x-transition x-cloak
                     class="bg-white text-sm border border-gray-300 rounded-md absolute top-7 right-0 shadow-sm"
                     x-on:click.outside="showDropdown = false">
                     <form action="{{ route('logout') }}" method="post">
