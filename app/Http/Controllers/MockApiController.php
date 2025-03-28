@@ -259,46 +259,70 @@ class MockApiController extends Controller
 
     // API
 
-    public function apiIndex(string $providerId, string $prefix)
+    public function apiIndex(Request $request, string $providerId, string $prefix)
     {
-        $user = User::where('provider_id', $providerId)->first();
-        $userId = $user->id;
+        try {
+            $request->validate([
+                'sort_order' => 'nullable|in:asc,desc',
+            ]);
 
-        $mockApi = MockApi::where('user_id', $userId)
-            ->where('prefix', '/' . $prefix)
-            ->where('status', 'published')
-            ->first();
-        $storage = $mockApi->storage;
+            $user = User::where('provider_id', $providerId)->first();
+            $userId = $user->id;
 
-        // Paginate
-        $page = request()->query('page', 1);
-        $perPage = request()->query('per_page', 10);
-        $offset = ($page - 1) * $perPage;
-        $total = count($storage);
-        $data = array_slice($storage, $offset, $perPage);
+            $mockApi = MockApi::where('user_id', $userId)
+                ->where('prefix', '/' . $prefix)
+                ->where('status', 'published')
+                ->first();
+            $storage = $mockApi->storage;
 
-        // Query
-        $query = request()->query('query');
-        $queryField = request()->query('query_field');
-        if ($query && $queryField) {
-            $data = array_filter($data, function ($item) use ($query, $queryField) {
-                $needleValue = Arr::get($item, $queryField);
-                return strpos($needleValue, $query) !== false;
-            });
-        } else if ($query) {
-            $data = array_filter($data, function ($item) use ($query) {
-                return strpos(json_encode($item), $query) !== false;
-            });
+            // Paginate
+            $page = request()->query('page', 1);
+            $perPage = request()->query('per_page', 10);
+            $offset = ($page - 1) * $perPage;
+            $total = count($storage);
+            $data = array_slice($storage, $offset, $perPage);
+
+            // Query
+            $query = request()->query('query');
+            $queryField = request()->query('query_field');
+            if ($query && $queryField) {
+                $data = array_filter($data, function ($item) use ($query, $queryField) {
+                    $needleValue = Arr::get($item, $queryField);
+                    return strpos($needleValue, $query) !== false;
+                });
+            } else if ($query) {
+                $data = array_filter($data, function ($item) use ($query) {
+                    return strpos(json_encode($item), $query) !== false;
+                });
+            }
+
+            // Sorting
+            $sortField = request()->query('sort_field');
+            $sortOrder = request()->query('sort_order', 'asc');
+            if ($sortField) {
+                usort($data, function ($a, $b) use ($sortField, $sortOrder) {
+                    if ($sortOrder === 'asc') {
+                        return $a[$sortField] <=> $b[$sortField];
+                    } else {
+                        return $b[$sortField] <=> $a[$sortField];
+                    }
+                });
+            }
+
+            return response()->json([
+                'data' => $data,
+                'meta' => [
+                    'count' => count($data),
+                    'page' => $page,
+                    'per_page' => $perPage,
+                    'total' => $total,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred while processing your request.',
+                'message' => $e->getMessage(),
+            ], 500);
         }
-
-        return response()->json([
-            'data' => $data,
-            'meta' => [
-                'count' => count($data),
-                'page' => $page,
-                'per_page' => $perPage,
-                'total' => $total,
-            ],
-        ]);
     }
 }
