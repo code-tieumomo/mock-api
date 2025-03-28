@@ -16,7 +16,7 @@ class CaptureMockApiRequest
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $action): Response
     {
         $providerId = $request->route('providerId');
         $user = User::where('provider_id', $providerId)->first();
@@ -37,17 +37,18 @@ class CaptureMockApiRequest
             ])),
             'response_data' => json_encode([]),
             'status' => 0,
+            'action' => $action,
         ]);
 
         $response = $next($request);
 
         $mockRequest->update([
             'response_data' => json_encode([
-                'status' => $response->status(),
+                'status' => $response->getStatusCode(),
                 'headers' => $response->headers->all(),
                 'content' => $response->getContent(),
             ]),
-            'status' => 1,
+            'status' => $response->getStatusCode()
         ]);
 
         return $response;

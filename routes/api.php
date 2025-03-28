@@ -9,6 +9,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::middleware(CaptureMockApiRequest::class)->group(function () {
-    Route::get('/{providerId}/{prefix}', [MockApiController::class, 'apiIndex']);
-});
+Route::get('/{providerId}/{prefix}', [MockApiController::class, 'apiIndex'])
+    ->middleware(CaptureMockApiRequest::class . ':LIST');
