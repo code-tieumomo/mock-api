@@ -302,9 +302,9 @@ class MockApiController extends Controller
             if ($sortField) {
                 usort($data, function ($a, $b) use ($sortField, $sortOrder) {
                     if ($sortOrder === 'asc') {
-                        return $a[$sortField] <=> $b[$sortField];
+                        return Arr::get($a, $sortField) <=> Arr::get($b, $sortField);
                     } else {
-                        return $b[$sortField] <=> $a[$sortField];
+                        return Arr::get($b, $sortField) <=> Arr::get($a, $sortField);
                     }
                 });
             }

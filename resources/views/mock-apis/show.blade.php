@@ -119,6 +119,16 @@
                             <td class="p-4">[string] name, address.city, users.0.email, ...</td>
                             <td class="p-4">The field to search</td>
                         </tr>
+                        <tr>
+                            <td class="p-4 font-bold">sort_field</td>
+                            <td class="p-4">[string] name, address.city, users.0.email, ...</td>
+                            <td class="p-4">The field to sort</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold">sort_order</td>
+                            <td class="p-4">[string] asc, desc</td>
+                            <td class="p-4">The order to sort</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -189,6 +199,23 @@
                                 <span class="text-info mr-4">GET</span>
                                 <span class="font-semibold">{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}</span>
                                 <span class="text-gray-500">?query=john&query_field=name</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div x-data="{ isExpanded: false }">
+                    <button id="controlsAccordionItemOne" type="button" class="flex w-full items-center justify-between gap-4 bg-surface-alt px-4 py-2 text-left underline-offset-2 hover:bg-surface-alt/75 focus-visible:bg-surface-alt/75 focus-visible:underline focus-visible:outline-hidden dark:bg-surface-dark-alt dark:hover:bg-surface-dark-alt/75 dark:focus-visible:bg-surface-dark-alt/75" aria-controls="accordionItemOne" x-on:click="isExpanded = ! isExpanded" x-bind:class="isExpanded ? 'text-on-surface-strong dark:text-on-surface-dark-strong font-bold'  : 'text-on-surface dark:text-on-surface-dark font-medium'" x-bind:aria-expanded="isExpanded ? 'true' : 'false'">
+                        Get all resources that sorted by "name" field in descending order
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor" class="size-5 shrink-0 transition" aria-hidden="true" x-bind:class="isExpanded  ?  'rotate-180'  :  ''">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                        </svg>
+                    </button>
+                    <div x-cloak x-show="isExpanded" id="accordionItemOne" role="region" aria-labelledby="controlsAccordionItemOne" x-collapse>
+                        <div class="px-4 py-2 text-sm sm:text-base text-pretty">
+                            <a href="{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}?sort_field=name&sort_order=desc" target="_blank" class="flex items-center">
+                                <span class="text-info mr-4">GET</span>
+                                <span class="font-semibold">{{ config('app.url') }}/api/{{ Auth::user()->provider_id }}{{ $mockApi->prefix }}</span>
+                                <span class="text-gray-500">?sort_field=name&sort_order=desc</span>
                             </a>
                         </div>
                     </div>
