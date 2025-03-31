@@ -310,7 +310,7 @@ class MockApiController extends Controller
             }
 
             return response()->json([
-                'data' => $data,
+                'data' => array_values($data),
                 'meta' => [
                     'count' => count($data),
                     'page' => $page,
